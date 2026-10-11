@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; script-src 'self' 'unsafe-eval' blob:">
+    <title>그 여름의 기록 — 비주얼 노벨</title>
+
+    <!-- Monogatari CSS -->
+    <link rel="stylesheet" href="../vendor/monogatari/monogatari.css">
+    <!-- 우리 커스텀 스타일 (Monogatari v2 호환) -->
+    <link rel="stylesheet" href="../style.css?v=12">
+
+    <!-- Google Fonts: 일본식 세리프 + 산세리프 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- JavaScript 비활성화 시 폴백 -->
+    <noscript>
+        <div style="text-align:center;padding:40px;color:#fff;background:#000;">
+            <h2>JavaScript가 비활성화되었습니다.</h2>
+            <p>게임을 플레이하려면 JavaScript를 활성화해 주세요.</p>
+        </div>
+    </noscript>
+
+    <!-- Monogatari 엔진 부트 영역 (v2 web component 구조) -->
+    <div id="monogatari">
+        <visual-novel>
+            <loading-screen></loading-screen>
+            <main-screen>
+                <main-menu></main-menu>
+            </main-screen>
+            <game-screen>
+                <dialog-log></dialog-log>
+                <text-box></text-box>
+                <quick-menu></quick-menu>
+            </game-screen>
+            <gallery-screen></gallery-screen>
+            <credits-screen></credits-screen>
+            <load-screen></load-screen>
+            <save-screen></save-screen>
+            <settings-screen></settings-screen>
+            <help-screen></help-screen>
+        </visual-novel>
+    </div>
+
+    <!-- Monogatari 엔진 (로컬) -->
+    <script src="../vendor/monogatari/monogatari.js?v=3"></script>
+    <!-- 게임 설정 + 시나리오 (Monogatari v2 API) — ?v=3 캐시 무효화 -->
+    <script src="../js/options.js?v=6"></script>
+    <script src="../js/storage.js?v=4"></script>
+    <script src="../js/assets.js?v=9"></script>
+    <script src="../js/characters.js?v=8"></script>
+    <script src="../js/script.js?v=24"></script>
+    <!-- 엔진 초기화 (반드시 마지막) -->
+    <script src="../main.js?v=8"></script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+/* ============================================================
+ *  그 여름의 기록 — 커스텀 스타일 (Monogatari v2 호환)
+ *  v2는 web component(<visual-novel> 등)를 사용하므로
+ *  컴포넌트 내부 스타일은 monogatari.css가 담당합니다.
+ *  여기서는 글로벌 폰트·배경·컴포넌트 override만 조정합니다.
+ *
+ *  일본 미연시 톤 (强化):
+ *    • 타이틀: Noto Serif JP 세리프, 가벼운 letter-spacing
+ *    • 텍스트 박스: 검정 반투명 (linear-gradient), Noto Serif JP 본문
+ *    • 이름 박스: 흰 박스 + 검정 글씨 (둥근 모서리 없음 = 미연시 정통)
+ *    • 선택지: 화면 중앙 정렬, hover 시 우측으로 미끄러짐
+ *    • 컨트롤: 우측 상단 동그라미, blur backdrop
+ * ============================================================ */
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    font-family: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+#monogatari {
+    width: 100vw;
+    height: 100vh;
+}
+
+visual-novel {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* ----- 타이틀 화면 ----- */
+[data-component="main-screen"] {
+    position: relative !important;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(10, 14, 20, 0.68) 0%, rgba(10, 14, 20, 0.46) 42%, rgba(10, 14, 20, 0.10) 76%, rgba(10, 14, 20, 0.42) 100%),
+        linear-gradient(0deg, rgba(12, 18, 27, 0.62) 0%, transparent 56%),
+        url("assets/backgrounds/school_courtyard.jpg") center / cover no-repeat !important;
+}
+
+[data-component="main-screen"]::before {
+    content: "그 여름의 기록";
+    position: absolute;
+    z-index: 1;
+    top: 27%;
+    left: clamp(32px, 10vw, 160px);
+    color: #fffaf0;
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif;
+    font-size: clamp(42px, 5.2vw, 78px);
+    font-weight: 300;
+    letter-spacing: 0.20em;
+    line-height: 1.35;
+    -webkit-text-stroke: 0.6px rgba(13, 17, 22, 0.5);
+    text-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.9),
+        0 5px 14px rgba(0, 0, 0, 0.92),
+        0 0 34px rgba(0, 0, 0, 0.72);
+    pointer-events: none;
+}
+
+[data-component="main-screen"]::after {
+    content: "방학까지 일주일, 도서부에서 시작된 작은 이야기";
+    position: absolute;
+    z-index: 1;
+    top: calc(27% + clamp(78px, 9vw, 132px));
+    left: clamp(36px, 10.3vw, 166px);
+    color: rgba(255, 250, 240, 0.9);
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif;
+    font-size: clamp(14px, 1.35vw, 19px);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-shadow:
+        0 1px 3px rgba(0, 0, 0, 1),
+        0 3px 8px rgba(0, 0, 0, 0.98),
+        0 0 20px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+}
+
+[data-component="main-menu"] {
+    position: absolute !important;
+    z-index: 2;
+    right: clamp(24px, 7vw, 112px);
+    bottom: clamp(28px, 8vh, 84px);
+    display: flex !important;
+    width: min(280px, 76vw);
+    flex-direction: column;
+    gap: 7px;
+}
+
+[data-content="title"] {
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.18em !important;
+    text-shadow: 0 0 24px rgba(0, 0, 0, 0.95), 0 2px 12px rgba(0, 0, 0, 0.7) !important;
+    font-size: 56px !important;
+    color: #fff !important;
+}
+
+[data-content="subtitle"] {
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.08em !important;
+    text-shadow: 0 0 16px rgba(0, 0, 0, 0.95) !important;
+    opacity: 0.85 !important;
+    font-size: 18px !important;
+}
+
+/* ----- 메인 메뉴 버튼 (미연시 특유의 박스형) ----- */
+[data-component="main-menu"] button {
+    background: rgba(20, 27, 34, 0.52) !important;
+    color: #fffaf0 !important;
+    border: 1px solid rgba(255, 250, 240, 0.48) !important;
+    padding: 14px 28px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2em !important;
+    border-radius: 0 !important;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif !important;
+    margin: 8px 0 !important;
+    min-width: 240px;
+}
+[data-component="main-menu"] button:hover {
+    background: rgba(255, 250, 240, 0.96) !important;
+    color: #26313a !important;
+    transform: translateX(4px);
+}
+
+/* ----- 텍스트 박스 (일본 미연시 표준) ----- */
+[data-component="text-box"] {
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.88) 0%,
+        rgba(0, 0, 0, 0.80) 55%,
+        rgba(0, 0, 0, 0.55) 100%
+    ) !important;
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif !important;
+}
+
+[data-component="text-box"] [data-content="text"] {
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif !important;
+    font-size: 20px !important;
+    line-height: 1.65 !important;
+    color: #f5f5f5 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em;
+    white-space: pre-line;
+    padding: 32px 80px 28px 80px !important;
+}
+
+/* ----- 일본어 원문과 한국어 번역 ----- */
+[data-component="text-box"] [data-content="text"]:lang(ja),
+[data-component="text-box"] [data-content="text"] ruby,
+[data-component="text-box"] [data-content="text"] rt {
+    font-family: 'Noto Serif JP', serif !important;
+}
+
+/* 줄바꿈은 white-space: pre-line으로 유지됩니다. */
+[data-component="text-box"] [data-content="text"] {
+    display: block;
+    min-height: 100%;
+}
+
+/* 일본어 문장과 루비 표기는 일본어 폰트를 사용합니다. */
+[data-component="text-box"] [data-content="text"]:lang(ja),
+[data-component="text-box"] [data-content="text"] ruby,
+[data-component="text-box"] [data-content="text"] rt {
+    font-family: 'Noto Serif JP', serif !important;
+}
+
+/* ----- 이름 박스 (흰 박스 + 검정 글씨) ----- */
+[data-component="text-box"] [data-content="name"] {
+    background: linear-gradient(135deg, rgba(16, 31, 48, 0.96), rgba(28, 48, 67, 0.92)) !important;
+    color: #d8f3ff !important;
+    border: 1px solid rgba(143, 218, 242, 0.52);
+    padding: 7px 22px !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    border-radius: 6px 6px 6px 2px !important;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    margin: 0 80px 12px 80px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.08), 0 0 16px rgba(99, 204, 236, 0.1);
+    position: relative;
+    top: 16px;
+    width: fit-content !important;
+    max-width: calc(100% - 160px);
+    justify-self: start;
+}
+
+/* 내레이션에는 화자명이 없으므로 빈 이름 영역을 감춥니다. */
+[data-component="text-box"] [data-content="name"]:has([data-content="character-name"]:empty) {
+    display: none !important;
+}
+
+[data-component="text-box"] [data-ui="who"] {
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif !important;
+}
+
+/* ----- 하단 퀵 메뉴 ----- */
+:root { --quick-menu-height: 72px; }
+quick-menu,
+[data-component="quick-menu"] {
+    position: absolute !important;
+    z-index: 30 !important;
+    inset: auto 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: var(--quick-menu-height) !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 8px 14px max(8px, env(safe-area-inset-bottom)) !important;
+    background: linear-gradient(0deg, rgba(5, 10, 17, 0.94), rgba(7, 13, 21, 0.78)) !important;
+    border-top: 1px solid rgba(190, 216, 231, 0.16);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+quick-menu button,
+[data-component="quick-menu"] button {
+    width: auto !important;
+    min-width: 58px !important;
+    height: 52px !important;
+    margin: 0 !important;
+    padding: 5px 7px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 3px;
+    border: 1px solid rgba(205, 224, 235, 0.16) !important;
+    border-radius: 10px !important;
+    background: rgba(20, 30, 41, 0.52) !important;
+    color: rgba(244, 248, 250, 0.86) !important;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s;
+}
+quick-menu button > .fas,
+[data-component="quick-menu"] button > .fas {
+    display: block !important;
+    font-size: 16px !important;
+}
+quick-menu button > [data-string],
+[data-component="quick-menu"] button > [data-string] {
+    display: block !important;
+    font-size: 10px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+quick-menu button:hover,
+quick-menu button:focus-visible,
+[data-component="quick-menu"] button:hover,
+[data-component="quick-menu"] button:focus-visible {
+    background: rgba(102, 153, 181, 0.3) !important;
+    border-color: rgba(190, 226, 244, 0.52) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* ----- 선택지 (비주얼 노벨식 중앙 선택 패널) ----- */
+[data-component="choices"] {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    z-index: 20;
+    width: min(590px, 88%);
+    padding: 22px !important;
+    border: 1px solid rgba(118, 184, 211, 0.34);
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(5, 13, 24, 0.97), rgba(10, 23, 37, 0.96));
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+[data-component="choices"]::before {
+    content: '그 순간, 어떤 말을 건넬까';
+    display: block;
+    color: rgba(220, 239, 248, 0.82);
+    font-family: 'Noto Serif KR', 'Noto Serif JP', serif;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-align: center;
+    padding: 2px 0 8px;
+}
+[data-choice] {
+    position: relative;
+    width: 100% !important;
+    background: linear-gradient(110deg, rgba(18, 35, 53, 0.98), rgba(10, 22, 36, 0.98)) !important;
+    color: #f1f7fa !important;
+    border: 1px solid rgba(142, 192, 213, 0.25) !important;
+    border-left: 3px solid rgba(91, 183, 215, 0.84) !important;
+    padding: 15px 22px 15px 52px !important;
+    font-size: 16px !important;
+    line-height: 1.55 !important;
+    border-radius: 7px !important;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.18s, box-shadow 0.2s;
+    text-align: center;
+    white-space: pre-line;
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.045);
+}
+[data-choice]::before {
+    position: absolute;
+    left: 19px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(155, 220, 241, 0.78);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+}
+[data-choice]:nth-of-type(1)::before { content: '01'; }
+[data-choice]:nth-of-type(2)::before { content: '02'; }
+[data-choice]:nth-of-type(3)::before { content: '03'; }
+[data-choice]:focus-visible {
+    outline: 2px solid rgba(174, 231, 249, 0.85);
+    outline-offset: 2px;
+}
+[data-choice]:hover {
+    background: linear-gradient(110deg, rgba(28, 65, 88, 0.99), rgba(17, 39, 58, 0.99)) !important;
+    color: #fff !important;
+    border-color: rgba(184, 231, 247, 0.62) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), inset 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* ----- 진행 표시 점 ----- */
+[data-view="text-indicator"] {
+    color: rgba(255, 255, 255, 0.7) !important;
+    animation: blink 1.2s infinite;
+}
+@keyframes blink {
+    0%, 50% { opacity: 0.7; }
+    51%, 100% { opacity: 0.15; }
+}
+
+/* ----- 다이얼로그 로그 (백로그) ----- */
+[data-component="dialog-log"] .modal__content,
+[data-component="dialog-log"] {
+    background: rgba(0, 0, 0, 0.92) !important;
+    color: #f5f5f5 !important;
+    font-family: 'Noto Serif KR', 'Noto Serif JP', serif !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+[data-component="dialog-log"] button {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 8px 24px !important;
+    border-radius: 2px !important;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+/* ----- 배경 ----- */
+#background {
+    background-size: cover !important;
+    background-position: center !important;
+    filter: brightness(0.92) saturate(0.95);
+}
+
+/* ----- 캐릭터 이미지 ----- */
+[data-ui="face"] {
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.4));
+}
+
+/* ----- CG ----- */
+[data-component="cg"],
+img[alt][data-content="character-expression"] {
+    object-fit: contain !important;
+}
+
+/* 이벤트 CG는 화면 전체를 채우고, 화면 비율에 맞춰 중앙에서 크롭한다. */
+game-screen img[src*="cg_"],
+game-screen [data-image*="cg_"] {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+}
+
+/* ----- 세이브/로드/설정 화면 ----- */
+[data-component="save-screen"],
+[data-component="load-screen"],
+[data-component="settings-screen"] {
+    position: relative;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(46, 79, 105, 0.42), transparent 58%),
+        linear-gradient(145deg, rgba(10, 17, 27, 0.98), rgba(5, 9, 15, 0.98)) !important;
+    color: #fff !important;
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif !important;
+}
+[data-component="save-screen"] [data-content="slots"],
+[data-component="load-screen"] [data-content="slots"] {
+    width: min(1040px, 92vw);
+    margin: 34px auto;
+}
+[data-component="save-screen"] input,
+[data-component="save-screen"] select,
+[data-component="load-screen"] input,
+[data-component="settings-screen"] input,
+[data-component="settings-screen"] select {
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid rgba(174, 206, 224, 0.32) !important;
+    border-radius: 8px !important;
+    background: rgba(8, 15, 23, 0.86) !important;
+    color: #f4f7f9 !important;
+}
+[data-component="settings-screen"] h2,
+[data-component="settings-screen"] h3,
+[data-component="save-screen"] h2,
+[data-component="load-screen"] h2 {
+    color: #f2e8d4 !important;
+    font-family: 'Noto Serif JP', 'Noto Serif KR', serif !important;
+    letter-spacing: 0.08em;
+}
+[data-component="settings-screen"] button.top,
+[data-component="save-screen"] button.top,
+[data-component="load-screen"] button.top {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: rgba(18, 29, 41, 0.78) !important;
+}
+[data-component="save-screen"] button,
+[data-component="load-screen"] button {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+[data-component="settings-screen"] button {
+    color: #f2f6f8 !important;
+}
+[data-component="save-screen"] button:hover,
+[data-component="load-screen"] button:hover {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a1a !important;
+}
+
+/* ----- 모바일 반응형 ----- */
+@media (max-width: 768px) {
+    quick-menu,
+    [data-component="quick-menu"] {
+        inset: auto 0 0 0 !important;
+        width: 100% !important;
+        justify-content: center !important;
+        gap: 3px !important;
+        padding: 6px 8px max(6px, env(safe-area-inset-bottom)) !important;
+    }
+    quick-menu button,
+    [data-component="quick-menu"] button {
+        min-width: 0 !important;
+        flex: 1 1 0;
+        height: 48px !important;
+        padding: 3px 2px !important;
+        gap: 2px;
+    }
+    quick-menu button > [data-string],
+    [data-component="quick-menu"] button > [data-string] {
+        font-size: clamp(8px, 2.2vw, 10px);
+    }
+    [data-component="main-screen"]::before {
+        top: 18%;
+        left: 7vw;
+        font-size: clamp(34px, 9vw, 56px);
+    }
+    [data-component="main-screen"]::after {
+        top: calc(18% + 70px);
+        left: 7.5vw;
+        max-width: 80vw;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+    [data-component="main-menu"] {
+        right: 7vw;
+        bottom: 7vh;
+    }
+    [data-content="title"] {
+        font-size: 36px !important;
+    }
+    [data-content="subtitle"] {
+        font-size: 14px !important;
+    }
+    [data-component="text-box"] [data-content="text"] {
+        font-size: 16px !important;
+        padding: 22px 28px 20px 28px !important;
+    }
+    [data-component="text-box"] [data-content="name"] {
+        margin: 0 28px 8px 28px;
+        font-size: 14px !important;
+    }
+    [data-component="choices"] {
+        padding: 16px !important;
+        width: min(560px, 92%);
+    }
+    [data-component="choices"]::before {
+        font-size: 12px;
+        letter-spacing: 0.1em;
+    }
+    [data-component="main-menu"] button {
+        padding: 12px 32px !important;
+        font-size: 14px !important;
+        min-width: 180px;
+    }
+    [data-choice] {
+        font-size: 15px !important;
+        padding: 12px 14px 12px 42px !important;
+    }
+    [data-choice]::before {
+        left: 14px;
+    }
+}
+
+/* ----- 스크롤바 제거 ----- */
+::-webkit-scrollbar { display: none; }
