@@ -138,6 +138,35 @@ visual-novel {
     color: #26313a !important;
     transform: translateX(4px);
 }
+[data-component="main-menu"] .portal-home-link {
+    display: block;
+    min-width: 240px;
+    margin: 8px 0 !important;
+    padding: 14px 28px !important;
+    border: 1px solid rgba(255, 250, 240, 0.48);
+    background: rgba(20, 27, 34, 0.52);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+    color: #fffaf0;
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+[data-component="main-menu"] .portal-home-link:hover,
+[data-component="main-menu"] .portal-home-link:focus-visible {
+    background: rgba(255, 250, 240, 0.96);
+    color: #26313a;
+    transform: translateX(4px);
+}
+[data-component="main-menu"] .portal-home-link:focus-visible {
+    outline: 2px solid rgba(255, 250, 240, 0.9);
+    outline-offset: 3px;
+}
 
 /* ----- 텍스트 박스 (일본 미연시 표준) ----- */
 [data-component="text-box"] {
@@ -378,6 +407,64 @@ quick-menu button:focus-visible,
     letter-spacing: 0.1em;
 }
 
+/* ----- 종료/확인 모달 ----- */
+[data-component="alert-modal"] {
+    background: rgba(3, 8, 14, 0.74) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+[data-component="alert-modal"] .modal__content {
+    width: min(480px, calc(100vw - 36px)) !important;
+    padding: 34px 30px 26px !important;
+    border: 1px solid rgba(190, 218, 231, 0.42) !important;
+    border-radius: 3px !important;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(52, 83, 105, 0.38), transparent 72%),
+        linear-gradient(145deg, rgba(13, 23, 34, 0.98), rgba(7, 13, 21, 0.98)) !important;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.58), inset 0 1px rgba(255, 255, 255, 0.08) !important;
+    color: #f5f1e8 !important;
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans KR', sans-serif !important;
+}
+[data-component="alert-modal"] [data-content="message"] {
+    margin: 0 0 26px !important;
+    color: #f5f1e8 !important;
+    font-size: 17px !important;
+    font-weight: 500 !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.08em !important;
+    text-align: center !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+[data-component="alert-modal"] [data-content="actions"] {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+[data-component="alert-modal"] button {
+    min-width: 112px !important;
+    padding: 10px 20px !important;
+    border: 1px solid rgba(194, 218, 231, 0.42) !important;
+    border-radius: 2px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #f5f1e8 !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    letter-spacing: 0.12em !important;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+[data-component="alert-modal"] button:hover,
+[data-component="alert-modal"] button:focus-visible {
+    border-color: rgba(221, 237, 244, 0.78) !important;
+    background: rgba(125, 164, 185, 0.24) !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+[data-component="alert-modal"] button:focus-visible {
+    outline: 2px solid rgba(194, 225, 239, 0.7);
+    outline-offset: 3px;
+}
+
 /* ----- 배경 ----- */
 #background {
     background-size: cover !important;
@@ -536,6 +623,11 @@ game-screen [data-image*="cg_"] {
         padding: 12px 32px !important;
         font-size: 14px !important;
         min-width: 180px;
+    }
+    [data-component="main-menu"] .portal-home-link {
+        min-width: 180px;
+        padding: 12px 32px !important;
+        font-size: 14px;
     }
     [data-choice] {
         font-size: 15px !important;

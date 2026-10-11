@@ -13,6 +13,22 @@ monogatari.debug.level(0);
 
 $_ready(() => {
     monogatari.init('#monogatari').then(() => {
+        // 게임 타이틀 메뉴에서 포털 홈으로 돌아갈 수 있게 설정 바로 아래에 링크를 둡니다.
+        const mainMenu = document.querySelector('[data-component="main-menu"]');
+        const settingsButton = mainMenu?.querySelector('[data-open="settings"]');
+
+        if (mainMenu && !mainMenu.querySelector('.portal-home-link')) {
+            const homeLink = document.createElement('a');
+            homeLink.className = 'portal-home-link';
+            homeLink.href = '../';
+            homeLink.textContent = '홈으로 가기';
+            if (settingsButton?.parentNode === mainMenu) {
+                settingsButton.insertAdjacentElement('afterend', homeLink);
+            } else {
+                mainMenu.append(homeLink);
+            }
+        }
+
         // 하단의 '넘기기'는 스킵 모드가 아니라 다음 대사 한 줄 진행으로 동작시킵니다.
         const quickMenu = monogatari.component('quick-menu');
         const advanceButton = quickMenu?.button('Skip');
